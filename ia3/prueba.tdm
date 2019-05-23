@@ -1,0 +1,132 @@
+[Diagram]
+Title=Analysis
+Database=C:\Users\axel\AppData\Local\Temp\tan1740.txt
+
+[Dataset]
+MLClassGenerator=TMLGenDataset
+successors=1
+succ_1=Define status 1
+
+[Define status 1]
+MLClassGenerator=TMLGenFSDefStatus
+target_count=0
+input_count=2
+input_1=loc_procedencia
+input_2=fecha_nacimiento
+illus_count=0
+successors=1
+succ_1=Remove constant 1
+
+[Remove constant 1]
+MLClassGenerator=TMLGenFSRemoveConstant
+successors=1
+succ_1=View dataset 1
+
+[View dataset 1]
+MLClassGenerator=TMLGenCompViewData
+successors=2
+succ_1=Define status 2
+succ_2=Define status 3
+
+[Define status 2]
+MLClassGenerator=TMLGenFSDefStatus
+target_count=1
+target_1=nombre_carrera
+input_count=9
+input_1=dep_practica
+input_2=futbol
+input_3=basquet
+input_4=voley
+input_5=prac_gimnasia
+input_6=prac_tennis
+input_7=prac_natacion
+input_8=prac_hanball
+input_9=prac_otros
+illus_count=0
+successors=1
+succ_1=K-Means Strengthening 1
+
+[K-Means Strengthening 1]
+MLClassGenerator=TGenClusKMeansStrengthen
+rnd_generator=1
+show_anova=0
+nb_clusters=16
+normalization=1
+avg_computation=1
+max_iter=15
+nb_trials=1
+successors=0
+
+[Define status 3]
+MLClassGenerator=TMLGenFSDefStatus
+target_count=0
+input_count=11
+input_1=carrera
+input_2=dep_practica
+input_3=futbol
+input_4=basquet
+input_5=voley
+input_6=prac_gimnasia
+input_7=prac_tennis
+input_8=prac_natacion
+input_9=prac_hanball
+input_10=prac_otros
+input_11=cantmataprob_al_21-10-2017
+illus_count=0
+successors=2
+succ_1=K-Means 1
+succ_2=Kohonen-SOM 1
+
+[K-Means 1]
+MLClassGenerator=TGenClusKMeans
+rnd_generator=1
+show_anova=0
+nb_clusters=3
+normalization=1
+avg_computation=1
+max_iter=10
+nb_trials=5
+successors=0
+
+[Kohonen-SOM 1]
+MLClassGenerator=TGenClusSOM
+rnd_generator=1
+show_anova=0
+col_count=2
+row_count=4
+normalization=1
+learning_rate=0,05
+successors=1
+succ_1=Define status 4
+
+[Define status 4]
+MLClassGenerator=TMLGenFSDefStatus
+target_count=1
+target_1=Cluster_SOM_1
+input_count=11
+input_1=carrera
+input_2=dep_practica
+input_3=futbol
+input_4=basquet
+input_5=voley
+input_6=prac_gimnasia
+input_7=prac_tennis
+input_8=prac_natacion
+input_9=prac_hanball
+input_10=prac_otros
+input_11=cantmataprob_al_21-10-2017
+illus_count=0
+successors=1
+succ_1=Supervised Learning 1 (C4.5)
+
+[Supervised Learning 1 (C4.5)]
+MLClassGenerator=TMLGCompOneInstance
+embedded_spv=1
+embedded_section=Supervised Learning 1 (C4.5)--C4.5
+successors=0
+
+[Supervised Learning 1 (C4.5)--C4.5]
+MLClassGenerator=TMLGCompSpvTreeC45
+min_size_leaf=5
+p_level=0,25
+
